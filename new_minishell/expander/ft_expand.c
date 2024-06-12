@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emilin <emilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 17:43:55 by abelayad          #+#    #+#             */
-/*   Updated: 2024/06/12 07:19:51 by emilin           ###   ########.fr       */
+/*   Created: 2024/06/12 15:49:30 by emilin            #+#    #+#             */
+/*   Updated: 2024/06/12 15:49:35 by emilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_handle_dollar(char *str, size_t *i)
+char	*ft_handle_dollar(char *str, size_t *i, int *exit_code, t_env **env_list)
 {
 	size_t	start;
 	char	*var;
@@ -27,7 +27,7 @@ char	*ft_handle_dollar(char *str, size_t *i)
 	else if (str[*i] == '?')
 	{
 		(*i)++;
-		return (ft_itoa(g_minishell.exit_s));
+		return (ft_itoa(*exit_code));
 	}
 	else if (!ft_is_valid_var_char(str[*i]))
 		return (ft_strdup("$"));
@@ -41,7 +41,7 @@ char	*ft_handle_dollar(char *str, size_t *i)
 	return (free(var), ft_strdup(env_val));
 }
 
-static char	*ft_cmd_pre_expander(char *str)
+static char	*ft_cmd_pre_expander(char *str, int *exit_code, t_env **env_list)
 {
 	char	*ret;
 	size_t	i;
@@ -53,21 +53,21 @@ static char	*ft_cmd_pre_expander(char *str)
 		if (str[i] == '\'')
 			ret = ft_strjoin_f(ret, ft_handle_squotes(str, &i));
 		else if (str[i] == '"')
-			ret = ft_strjoin_f(ret, ft_handle_dquotes(str, &i));
+			ret = ft_strjoin_f(ret, ft_handle_dquotes(str, &i, exit_code, env_list));
 		else if (str[i] == '$')
-			ret = ft_strjoin_f(ret, ft_handle_dollar(str, &i));
+			ret = ft_strjoin_f(ret, ft_handle_dollar(str, &i, exit_code, env_list));
 		else
 			ret = ft_strjoin_f(ret, ft_handle_normal_str(str, &i));
 	}
 	return (ret);
 }
 
-char	**ft_expand(char *str)
+char	**ft_expand(char *str, int *exit_code, t_env **env_list)
 {
 	char	**expanded;
 	size_t	i;
 
-	str = ft_cmd_pre_expander(str);
+	str = ft_cmd_pre_expander(str, exit_code, env_list);
 	if (!str)
 		return (NULL);
 	str = ft_clean_empty_strs(str);

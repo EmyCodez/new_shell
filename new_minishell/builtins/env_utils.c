@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilin <emilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 19:13:32 by abelayad          #+#    #+#             */
-/*   Updated: 2023/06/17 21:43:45 by abelayad         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:11:59 by emilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ft_env_entry_exists(char *key)
+bool	ft_env_entry_exists(char *key, t_env **env_list)
 {
 	t_env	*envlst;
 
-	envlst = g_minishell.envlst;
+	envlst = *env_list;
 	while (envlst)
 	{
 		if (!ft_strcmp(key, envlst->key))
@@ -40,11 +40,11 @@ static t_env	*ft_envlst_new(char *key, char *value)
 	return (new);
 }
 
-char	*ft_get_envlst_val(char *key)
+char	*ft_get_envlst_val(char *key, t_env **env_list)
 {
 	t_env	*envlst;
 
-	envlst = g_minishell.envlst;
+	envlst = *env_list;
 	while (envlst)
 	{
 		if (!ft_strcmp(key, envlst->key))
@@ -54,11 +54,11 @@ char	*ft_get_envlst_val(char *key)
 	return (NULL);
 }
 
-void	ft_envlst_back(t_env *new)
+void	ft_envlst_back(t_env *new, t_env **env_list)
 {
 	t_env	*curr;
 
-	if (!g_minishell.envlst)
+	if (!*env_list)
 	{
 		g_minishell.envlst = new;
 		return ;

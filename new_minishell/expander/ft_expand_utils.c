@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilin <emilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 17:42:11 by abelayad          #+#    #+#             */
-/*   Updated: 2023/06/17 20:05:34 by abelayad         ###   ########.fr       */
+/*   Created: 2024/06/12 15:00:54 by emilin            #+#    #+#             */
+/*   Updated: 2024/06/12 15:49:55 by emilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_handle_squotes(char *str, size_t *i)
 	return (ft_substr(str, start, *i - start));
 }
 
-char	*ft_handle_dquotes(char *str, size_t *i)
+char	*ft_handle_dquotes(char *str, size_t *i, int *exit_code, t_env **env_list)
 {
 	char	*ret;
 
@@ -62,7 +62,7 @@ char	*ft_handle_dquotes(char *str, size_t *i)
 	while (str[*i] != '"')
 	{
 		if (str[*i] == '$')
-			ret = ft_strjoin_f(ret, ft_handle_dollar(str, i));
+			ret = ft_strjoin_f(ret, ft_handle_dollar(str, i, exit_code, env_list));
 		else
 			ret = ft_strjoin_f(ret, ft_handle_dquote_str(str, i));
 	}

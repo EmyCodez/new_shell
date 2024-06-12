@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilin <emilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:41:56 by abelayad          #+#    #+#             */
-/*   Updated: 2023/06/18 16:03:51 by abelayad         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:50:40 by emilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	ft_skip_spaces_and_get_sign(char *s, int *i, int *sign)
 	}
 }
 
-static int	ft_exittoi(char *s)
+static int	ft_exittoi(char *s, t_minishell *myshell)
 {
 	int					i;
 	int					sign;
@@ -51,7 +51,7 @@ static int	ft_exittoi(char *s)
 	if (!ft_isnumber(s + i))
 	{
 		exit_s = ft_err_msg((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, s});
-		(ft_clean_ms(), exit(exit_s));
+		(ft_clean_ms(myshell), exit(exit_s));
 	}
 	result = 0;
 	while (s[i])
@@ -60,28 +60,28 @@ static int	ft_exittoi(char *s)
 		if (result > LONG_MAX)
 		{
 			exit_s = ft_err_msg((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, s});
-			(ft_clean_ms(), exit(exit_s));
+			(ft_clean_ms(myshell), exit(exit_s));
 		}
 		i++;
 	}
 	return ((result * sign) % 256);
 }
 
-void	ft_exit(char **args)
+void	ft_exit(char **args, t_minishell *myshell)
 {
 	int	exit_s;
 
-	exit_s = g_minishell.exit_s;
+	exit_s = myshell->exit_s;
 	if (args[1])
 	{
 		if (args[2] && ft_isnumber(args[1]))
 		{
 			exit_s = ft_err_msg(
 					(t_err){ENO_GENERAL, ERRMSG_TOO_MANY_ARGS, NULL});
-			(ft_clean_ms(), exit(exit_s));
+			(ft_clean_ms(myshell), exit(exit_s));
 		}
 		else
-			exit_s = ft_exittoi(args[1]);
+			exit_s = ft_exittoi(args[1], myshell);
 	}
-	(ft_clean_ms(), exit(exit_s));
+	(ft_clean_ms(myshell), exit(exit_s));
 }

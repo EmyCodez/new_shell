@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilin <emilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 01:32:13 by abelayad          #+#    #+#             */
-/*   Updated: 2023/06/18 16:23:56 by abelayad         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:18:35 by emilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ typedef struct s_minishell
 	struct termios	original_term;
 }					t_minishell;
 
-extern t_minishell	g_minishell;
-
 /* ****************************   BUILTINS   ****************************** */
 // * cd.c ********************************************************************
 int		ft_cd(char *path);
@@ -110,7 +108,7 @@ void	ft_init_envlst(void);
 int		ft_env(void);
 
 // * exit.c ******************************************************************
-void	ft_exit(char **args);
+void	ft_exit(char **args, t_minishell *myshell);
 
 // * export.c ****************************************************************
 int		ft_check_key(char *str);
@@ -124,7 +122,7 @@ int		ft_unset(char **args);
 
 /* ****************************   CLEANING   ****************************** */
 // * ft_clean_ms.c ***********************************************************
-void	ft_clean_ms(void);
+void	ft_clean_ms(t_minishell *myshell);
 
 /* ******************************   EXEC   ******************************** */
 // * error_msg.c *************************************************************

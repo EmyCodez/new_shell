@@ -6,7 +6,7 @@
 /*   By: emilin <emilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 01:28:41 by abelayad          #+#    #+#             */
-/*   Updated: 2024/06/12 07:41:46 by emilin           ###   ########.fr       */
+/*   Updated: 2024/06/12 14:59:14 by emilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		ft_init_signals(&myshell);
-		myshell.line = readline(PROMPT);
+		myshell.line = readline(PROMPT_MSG);
 		if (!myshell.line)
 			(ft_clean_ms(),
 				ft_putstr_fd("exit\n", 1), exit(myshell.exit_s));
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **env)
 		myshell.tokens = ft_tokenize(&myshell.line);
 		if (!myshell.tokens)
 			continue ;
-		myshell.ast = ft_parse(&myshell);
+		myshell.ast = ft_parse(&myshell->ast);
 		if (myshell.parse_err.type)
 		{
 			ft_handle_parse_err();

@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emilin <emilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 20:07:14 by abelayad          #+#    #+#             */
-/*   Updated: 2024/06/12 07:40:57 by emilin           ###   ########.fr       */
+/*   Created: 2024/06/12 14:50:37 by emilin            #+#    #+#             */
+/*   Updated: 2024/06/12 14:50:47 by emilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZING_H
 # define TOKENIZING_H
 
-# define PROMPT "minishell$ "
+# define PROMPT_MSG "\033[1;36mminishell\033[34m$ \033[0m"
 
 typedef enum e_token_type
 {
