@@ -1,12 +1,12 @@
 /* ************************************************************************** */
-/*	                                                                          */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser_nodes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilin <emilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 19:42:23 by abelayad          #+#    #+#             */
-/*   Updated: 2023/05/16 21:09:02 by abelayad         ###   ########.fr       */
+/*   Created: 2024/06/12 10:48:25 by emilin            #+#    #+#             */
+/*   Updated: 2024/06/12 10:49:54 by emilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 t_node_type	ft_get_node_type(t_token_type type)
 {
-	if (type == T_AND)
-		return (N_AND);
-	if (type == T_OR)
-		return (N_OR);
-	return (N_PIPE);
+	if (type == T_PIPE)
+		return (N_PIPE);
+	return (N_CMD);
 }
 
 t_io_type	ft_get_io_type(t_token_type type)

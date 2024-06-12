@@ -3,28 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelayad <abelayad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emilin <emilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:07:53 by abelayad          #+#    #+#             */
-/*   Updated: 2023/06/18 16:28:15 by abelayad         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:06:46 by emilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_get_next_token(void)
-{
-	g_minishell.curr_token = g_minishell.curr_token -> next;
-}
-
-bool	ft_curr_token_is_binop(void)
+bool	ft_curr_token_is_binop(t_token *curr_token)
 {
 	t_token_type	type;
 
-	if (!g_minishell.curr_token)
+	if (!curr_token)
 		return (false);
-	type = g_minishell.curr_token->type;
-	if (type == T_PIPE || type == T_AND || type == T_OR)
+	type = curr_token->type;
+	if (type == T_PIPE)
 		return (true);
 	return (false);
 }
